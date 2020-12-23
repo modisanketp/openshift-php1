@@ -1,6 +1,17 @@
 <?php
 
-$conn = mysqli_connect($_ENV["DATABASE_SERVICE_NAME"],$_ENV["DATABASE_USER"], $_ENV["DATABASE_PASSWORD"],$_ENV["DATABASE_NAME"]);
+if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
+    echo 'We don\'t have mysqli!!!';
+} else {
+    echo 'Phew we have it!';
+}
+
+echo($_ENV["DATABASE_SERVICE_NAME"]);
+echo($_ENV["DATABASE_USER"]);
+echo($_ENV["DATABASE_PASSWORD"]);
+echo($_ENV["DATABASE_NAME"]);
+
+$conn = new mysqli($_ENV["DATABASE_SERVICE_NAME"],$_ENV["DATABASE_USER"], $_ENV["DATABASE_PASSWORD"],$_ENV["DATABASE_NAME"]);
 if (!$conn) {
 http_response_code (500);
 error_log ("Error: unable to connect to database\n"); die();
@@ -19,4 +30,4 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 
->
+?>
